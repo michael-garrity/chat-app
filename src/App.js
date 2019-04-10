@@ -1,4 +1,5 @@
 import React from "react";
+import "./App.css";
 import MessageList from "./components/MessageList";
 import NewRoomForm from "./components/NewRoomForm";
 import RoomList from "./components/RoomList";
