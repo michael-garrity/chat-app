@@ -1,6 +1,6 @@
-# React Todo App
+# React Chat App
 
-A basic todo app built with React
+A basic chat app built with React
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 
