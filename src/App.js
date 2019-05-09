@@ -11,7 +11,9 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      messages: []
+      messages: [],
+      joinableRooms: [],
+      joinedRooms: []
     };
 
     this.sendMessage = this.sendMessage.bind(this);
@@ -28,6 +30,17 @@ class App extends React.Component {
 
     chatManager.connect().then(currentUser => {
       this.currentUser = currentUser;
+
+      this.currentUser.getJoinableRooms()
+        .then(joinableRooms => {
+          this.setState({
+            joinableRooms,
+            joinedRooms: this.currentUser.rooms
+          })
+        })
+        .catch(err => console.log('error on joinableRooms: ', err))
+
+
       this.currentUser.subscribeToRoom({
         roomId: "20547498",
         hooks: {
@@ -53,7 +66,7 @@ class App extends React.Component {
     console.log("this.state.messages:", this.state.messages);
     return (
       <div className="app">
-        <RoomList />
+        <RoomList rooms={[...this.state.joinableRooms, ...this.state.joinedRooms]} />
         <MessageList messages={this.state.messages} />
         <SendMessageForm sendMessage={this.sendMessage} />
         <NewRoomForm />
